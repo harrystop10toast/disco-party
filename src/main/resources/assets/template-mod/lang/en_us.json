@@ -1,0 +1,14 @@
+{
+  "item.template-mod.disco_ball": "Disco Ball",
+  "entity.template-mod.disco_ball": "Disco Ball",
+  "block.template-mod.disco_jukebox": "Disco Jukebox",
+  "item.template-mod.disco_jukebox": "Disco Jukebox",
+  "item.template-mod.ultimate_music_disc": "Ultimate Music Disc",
+  "screen.template-mod.rename_music_disc": "Rename Ultimate Music Disc",
+  "screen.template-mod.music_filename": "Music file name",
+  "screen.template-mod.music_filename_hint": "example.mp3",
+  "screen.template-mod.save": "Save",
+  "message.template-mod.music_disc.rename_first": "Rename this disc to a supported music file first.",
+  "message.template-mod.music_disc.file_not_found": "The renamed music file was not found in config/template-mod/music.",
+  "message.template-mod.music_disc.decode_failed": "The music file could not be decoded. Check the game log and FFmpeg availability."
+}

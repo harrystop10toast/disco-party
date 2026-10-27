@@ -1,0 +1,5 @@
+[10:09:28] [Test worker/ERROR]: No data fixer registered for template-mod:disco_ball
+[10:09:30] [Test worker/INFO]: [STDOUT]: Total beats detected: 35
+[10:09:30] [Test worker/INFO]: [STDOUT]: Pickup beats count: 1
+[10:09:30] [Test worker/INFO]: [STDOUT]: Initial BPM: 120.00000000000001
+[10:09:30] [Test worker/INFO]: [STDOUT]: Average BPM: 135.0476190476191

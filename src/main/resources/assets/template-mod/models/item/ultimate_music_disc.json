@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "template-mod:item/ultimate_music_disc"
+  }
+}

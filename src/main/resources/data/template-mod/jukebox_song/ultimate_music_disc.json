@@ -1,0 +1,8 @@
+{
+  "sound_event": "minecraft:intentionally_empty",
+  "description": {
+    "translate": "item.template-mod.ultimate_music_disc"
+  },
+  "length_in_seconds": 3600.0,
+  "comparator_output": 1
+}

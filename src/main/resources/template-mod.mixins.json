@@ -1,0 +1,20 @@
+{
+	"required": true,
+	"package": "com.example.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"ExampleMixin",
+		"JukeboxBlockInsertMixin",
+		"VanillaJukeboxRejectMixin"
+	],
+	"client": [
+		"client.DynamicSoundBufferMixin",
+		"client.JellyEntityRenderMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}
