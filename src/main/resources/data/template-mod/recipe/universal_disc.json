@@ -8,7 +8,7 @@
   ],
   "key": {
     "D": "minecraft:diamond",
-    "M": "#minecraft:music_discs"
+    "M": "#template-mod:music_discs"
   },
   "result": {
     "id": "template-mod:ultimate_music_disc",
