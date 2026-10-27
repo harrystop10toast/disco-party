@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "DDD",
+    "DMD",
+    "DDD"
+  ],
+  "key": {
+    "D": "minecraft:diamond",
+    "M": "#minecraft:music_discs"
+  },
+  "result": {
+    "id": "template-mod:ultimate_music_disc",
+    "count": 1
+  }
+}

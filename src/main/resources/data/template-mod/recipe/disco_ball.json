@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "DDD",
+    "DJD",
+    "DDD"
+  ],
+  "key": {
+    "D": "minecraft:diamond",
+    "J": "minecraft:jukebox"
+  },
+  "result": {
+    "id": "template-mod:disco_ball",
+    "count": 1
+  }
+}
