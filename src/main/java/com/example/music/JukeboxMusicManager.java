@@ -135,6 +135,7 @@ public final class JukeboxMusicManager {
 			if (analysis != null && elapsedTicks >= Math.ceil(analysis.audioData().getDurationSec() * 20.0)) {
 				iterator.remove();
 				session.jukebox.popOutTheItem();
+				level.removeBlock(key.pos(), false);
 				continue;
 			}
 
@@ -174,6 +175,7 @@ public final class JukeboxMusicManager {
 	public static void stopServer(net.minecraft.server.MinecraftServer server) {
 		SESSIONS.keySet().removeIf(key -> key.level().getServer() == server);
 		ATTEMPTED_FILES.keySet().removeIf(key -> key.level().getServer() == server);
+		DiscoJukeboxBlockEntity.removeAllDiscoJukeboxes(server);
 		restoreMobs(server);
 	}
 

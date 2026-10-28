@@ -50,7 +50,6 @@ public class DiscoBallItem extends Item implements ProjectileItem {
 		}
 
 		player.awardStat(Stats.ITEM_USED.get(this));
-		itemStack.consume(1, player);
 		return InteractionResult.SUCCESS;
 	}
 

@@ -6,9 +6,10 @@ import com.example.network.MusicPacket;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
@@ -21,6 +22,8 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class DiscoJukeboxBlockEntity extends BlockEntity {
 	private static final String RECORD_ITEM_TAG = "RecordItem";
@@ -99,8 +102,42 @@ public class DiscoJukeboxBlockEntity extends BlockEntity {
 		syncDisc();
 	}
 
+	public static void removeOtherDiscoJukeboxes(
+		MinecraftServer server,
+		ServerLevel activeLevel,
+		BlockPos activePos
+	) {
+		removeDiscoJukeboxes(server, activeLevel, activePos);
+	}
+
+	public static void removeAllDiscoJukeboxes(MinecraftServer server) {
+		removeDiscoJukeboxes(server, null, null);
+	}
+
+	private static void removeDiscoJukeboxes(
+		MinecraftServer server,
+		@Nullable ServerLevel activeLevel,
+		@Nullable BlockPos activePos
+	) {
+		for (ServerLevel level : server.getAllLevels()) {
+			level.getChunkSource().chunkMap.forEachReadyToSendChunk(chunk -> {
+				for (BlockPos pos : List.copyOf(chunk.getBlockEntities().keySet())) {
+					if (chunk.getBlockEntity(pos) instanceof DiscoJukeboxBlockEntity
+						&& (level != activeLevel || !pos.equals(activePos))) {
+						level.removeBlock(pos, false);
+					}
+				}
+			});
+		}
+	}
+
 	public static void tick(Level level, BlockPos pos, BlockState state, DiscoJukeboxBlockEntity jukebox) {
 		jukebox.songPlayer.tick(level, state);
+		if (level instanceof ServerLevel && !jukebox.item.isEmpty() && !jukebox.songPlayer.isPlaying()) {
+			jukebox.popOutTheItem();
+			level.removeBlock(pos, false);
+			return;
+		}
 		if (level instanceof ServerLevel serverLevel && !jukebox.item.isEmpty()
 			&& jukebox.songPlayer.isPlaying()) {
 			JukeboxMusicManager.ensurePlaying(serverLevel, jukebox, jukebox.item);

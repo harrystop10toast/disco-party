@@ -1,6 +1,7 @@
 package com.example.entity;
 
 import com.example.TemplateMod;
+import com.example.block.DiscoJukeboxBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -20,12 +21,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.Map;
-import java.util.WeakHashMap;
-
 public class DiscoBallEntity extends ThrowableItemProjectile {
-
-	private static final Map<ServerLevel, BlockPos> LAST_JUKEBOX_POSITIONS = new WeakHashMap<>();
 
 	public DiscoBallEntity(EntityType<? extends DiscoBallEntity> entityType, Level level) {
 		super(entityType, level);
@@ -81,11 +77,13 @@ public class DiscoBallEntity extends ThrowableItemProjectile {
 			InteractionResult result = jukeboxBlockItem.place(context);
 			if (result.consumesAction()) {
 				BlockPos pos = context.getClickedPos();
-				BlockPos previousPos = LAST_JUKEBOX_POSITIONS.put(level, pos);
-				if (previousPos != null
-					&& !previousPos.equals(pos)
-					&& level.getBlockState(previousPos).is(TemplateMod.DISCO_JUKEBOX_BLOCK)) {
-					level.removeBlock(previousPos, false);
+				if (level.getBlockState(pos).is(TemplateMod.DISCO_JUKEBOX_BLOCK)
+					&& level.getBlockEntity(pos) instanceof DiscoJukeboxBlockEntity) {
+					DiscoJukeboxBlockEntity.removeOtherDiscoJukeboxes(
+						level.getServer(),
+						level,
+						pos
+					);
 				}
 
 				level.sendParticles(
